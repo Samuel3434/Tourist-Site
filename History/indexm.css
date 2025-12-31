@@ -1,0 +1,105 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    overflow-x: hidden;
+}
+
+.history-container {
+    width: 80%;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.history-title {
+    text-align: center;
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 40px;
+}
+
+/* Timeline Styles */
+.timeline {
+    position: relative;
+    padding: 20px;
+}
+
+.timeline-event {
+    position: relative;
+    margin-bottom: 40px;
+    padding-left: 50px;
+    border-left: 3px solid #0077b6;
+    opacity: 0;
+    transform: translateX(-100px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.timeline-event.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Circle for Date */
+.timeline-event .event-date {
+    position: absolute;
+    left: -25px;
+    top: 0;
+    background: #0077b6;
+    color: white;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+/* Event Content */
+.event-content {
+    background: #e3f2fd;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+.event-content h2 {
+    margin-top: 0;
+    color: #0077b6;
+}
+
+.event-content p {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Event Images */
+.event-content img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .history-container {
+        width: 95%;
+    }
+
+    .timeline-event {
+        padding-left: 20px;
+    }
+
+    .timeline-event .event-date {
+        left: -15px;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+}

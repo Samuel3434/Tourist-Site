@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ethiopian Heritage Sites</title>
+    <style>
+      /* (Keep all the same CSS styles from previous version) */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #0a0e17;
+        color: white;
+        overflow-x: hidden;
+      }
+      a {
+        text-decoration: none;
+        color: white;
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-100px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(100px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes popIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .destinations-container {
+        overflow-y: scroll;
+        height: 100vh;
+      }
+
+      .destination-card {
+        min-height: 100vh;
+        scroll-snap-align: start;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        opacity: 0;
+        transition: opacity 0.6s;
+      }
+
+      .destination-card.visible {
+        opacity: 1;
+      }
+
+      @media (min-width: 1000px) {
+        .card-content {
+          min-width: 860px;
+        }
+      }
+      .card-content {
+        max-width: 1200px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        background: linear-gradient(
+          145deg,
+          rgba(255, 255, 255, 0.1),
+          rgba(255, 255, 255, 0.05)
+        );
+        backdrop-filter: blur(10px);
+        padding: 4rem;
+        border-radius: 30px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+        transform-style: preserve-3d;
+        perspective: 1000px;
+      }
+
+      .destination-image {
+        width: 100%;
+        height: 60vh;
+        border-radius: 20px;
+        object-fit: cover;
+        transform: rotate(-3deg) translateZ(20px);
+        transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.4);
+      }
+
+      .destination-image:hover {
+        transform: rotate(0deg) scale(1.05) translateZ(30px);
+      }
+
+      .destination-info {
+        position: relative;
+        z-index: 2;
+      }
+
+      .destination-info h3 {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        background: linear-gradient(45deg, #00ff87, #60efff);
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease;
+      }
+
+      .location {
+        color: #a1a1a1;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease 0.1s;
+      }
+
+      .description {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease 0.2s;
+        color: #cfcfcf;
+      }
+
+      .explore-btn {
+        padding: 1rem 2.5rem;
+        background: linear-gradient(45deg, #00ff87, #60efff);
+        color: #0a0e17;
+        border: none;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .explore-btn:hover {
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 10px 20px rgba(96, 239, 255, 0.3);
+      }
+
+      /* Animation triggers */
+      .animate-left {
+        animation: slideInLeft 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      }
+
+      .animate-right {
+        animation: slideInRight 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+      }
+
+      .animate-pop {
+        animation: popIn 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      }
+
+      .visible .destination-info h3,
+      .visible .location,
+      .visible .description,
+      .visible .explore-btn {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 768px) {
+        .card-content {
+          grid-template-columns: 1fr;
+          padding: 2rem;
+          margin: 1rem;
+        }
+
+        .destination-image {
+          height: 40vh;
+        }
+
+        .destination-info h3 {
+          font-size: 2rem;
+        }
+      }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(45deg, #00ff87, #60efff);
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="destinations-section">
+      <div class="destinations-container" id="destinationsContainer">
+        <!-- Tigray Region -->
+        <h2 class="region-header">Tigray Region</h2>
+        <hr />
+
+        <!-- Axum -->
+        <div class="destination-card" id="Axum">
+          <div class="card-content">
+            <img src="../assets/Axum.jpg" class="destination-image" alt="Axum" />
+            <div class="destination-info">
+              <h3>Axum: A Journey Through Ethiopia's Past</h3>
+              <p class="location">Tigray Region, Ethiopia</p>
+              <p class="description">
+                Discover the ancient kingdom of Aksum, home to towering
+                obelisks, the Queen of Sheba's palace, and legendary tales of
+                the Ark of the Covenant.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tigray Rock Churches -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Tigray's Hidden Churches: Clifftop Sanctuaries.webp"
+              class="destination-image"
+              alt="Tigray Churches"
+            />
+            <div class="destination-info">
+              <h3>Tigray's Hidden Churches: Clifftop Sanctuaries</h3>
+              <p class="location">Tigray Region, Ethiopia</p>
+              <p class="description">
+                Challenge yourself to reach ancient churches carved into sheer
+                cliff faces with 5th-century frescoes.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Yeha Temple -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img src="assets/Yeha: Ethiopia's Oldest Standing Structure.webp" class="destination-image" alt="Yeha" />
+            <div class="destination-info">
+              <h3>Yeha: Ethiopia's Oldest Standing Structure</h3>
+              <p class="location">Tigray</p>
+              <p class="description">
+                6th-century BC moon temple ruins with massive stone walls and
+                Sabaean inscriptions.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Debre Damo -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Debre Damo: Monastic Fortress.webp"
+              class="destination-image"
+              alt="Debre Damo"
+            />
+            <div class="destination-info">
+              <h3>Debre Damo: Monastic Fortress</h3>
+              <p class="location">Tigray</p>
+              <p class="description">
+                6th-century monastery accessible only by climbing a 15m leather
+                rope.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Al Nejashi Mosque -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Al Nejashi: Africa's First Mosque.webp"
+              class="destination-image"
+              alt="Nejashi"
+            />
+            <div class="destination-info">
+              <h3>Al Nejashi: Africa's First Mosque</h3>
+              <p class="location">Tigray</p>
+              <p class="description">
+                7th-century mosque with unique circular design and historic
+                tombs.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gheralta Mountains -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Gheralta: Sandstone Spires & Sacred Art.webp"
+              class="destination-image"
+              alt="Gheralta"
+            />
+            <div class="destination-info">
+              <h3>Gheralta: Sandstone Spires & Sacred Art</h3>
+              <p class="location">Tigray Region</p>
+              <p class="description">
+                Dramatic sandstone formations housing 17th-century rock
+                churches.Climb to 9th-century fresco-adorned caves accessible
+                via vertical rock faces.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Amhara Region -->
+        <h2 class="region-header">Amhara Region</h2>
+        <hr />
+
+        <!-- Lalibela -->
+        <div class="destination-card" id="Lalibela">
+          <div class="card-content">
+            <img
+              src="../assets/lalibla.jpg"
+              class="destination-image"
+              alt="Lalibela"
+            />
+            <div class="destination-info">
+              <h3>Lalibela: A Living Testament to Faith</h3>
+              <p class="location">Amhara Region</p>
+              <p class="description">
+                UNESCO World Heritage Site with remarkable rock-hewn churches.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fasilides Castle -->
+        <div class="destination-card" id="Gondar">
+          <div class="card-content">
+            <img
+              src="../assets/Fasiledes castle.jpg"
+              class="destination-image"
+              alt="Fasilides"
+            />
+            <div class="destination-info">
+              <h3>Fasilides: The Jewel of Gondar's History</h3>
+              <p class="location">Gondar, Amhara</p>
+              <p class="description">
+                17th-century castle complex known as Africa's Camelot.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Blue Nile Falls -->
+        <div class="destination-card" id="Blue-Nile">
+          <div class="card-content">
+            <img
+              src="../assets/Blue-Nile.jpg"
+              class="destination-image"
+              alt="Blue Nile"
+            />
+            <div class="destination-info">
+              <h3>Blue Nile: Ethiopia's Majestic River</h3>
+              <p class="location">Amhara Region</p>
+              <p class="description">
+                Witness the impressive cascade of the Blue Nile Falls.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simien Mountains -->
+        <div class="destination-card" id="Seimein">
+          <div class="card-content">
+            <img
+              src="../assets/Seimein mountains.jpg"
+              class="destination-image"
+              alt="Simien Mountains"
+            />
+            <div class="destination-info">
+              <h3>Simien Mountains' Rugged Beauty</h3>
+              <p class="location">Amhara Region</p>
+              <p class="description">
+                UNESCO site with dramatic cliffs and Gelada baboons.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Lake Tana Monasteries -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Lake Tana: Island Monasteries.webp"
+              class="destination-image"
+              alt="Lake Tana"
+            />
+            <div class="destination-info">
+              <h3>Lake Tana: Island Monasteries</h3>
+              <p class="location">Amhara Region</p>
+              <p class="description">
+                14th-century churches on Ethiopia's largest lake.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ankober -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Ankober: Imperial Eagle's Nest.webp"
+              class="destination-image"
+              alt="Ankober"
+            />
+            <div class="destination-info">
+              <h3>Ankober: Imperial Eagle's Nest</h3>
+              <p class="location">Amhara</p>
+              <p class="description">
+                Former capital with palace ruins on 2,800m cliffs.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Magdala Hill -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Magdala: Lost Imperial Treasure.webp"
+              class="destination-image"
+              alt="Magdala"
+            />
+            <div class="destination-info">
+              <h3>Magdala: Lost Imperial Treasure</h3>
+              <p class="location">Amhara</p>
+              <p class="description">
+                Fortress ruins from Emperor Tewodros II's reign.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Afar Region -->
+        <h2 class="region-header">Afar Region</h2>
+        <hr />
+
+        <!-- Erta Ale Volcano -->
+        <div class="destination-card" id="Ertale">
+          <div class="card-content">
+            <img
+              src="../assets/Ertale.jpg"
+              class="destination-image"
+              alt="Erta Ale"
+            />
+            <div class="destination-info">
+              <h3>Erta Ale: Ever-Burning Volcano</h3>
+              <p class="location">Danakil Depression</p>
+              <p class="description">
+                Active volcano with mesmerizing lava lake.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Awash National Park -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Awash National Park.webp"
+              class="destination-image"
+              alt="Awash National Park"
+            />
+            <div class="destination-info">
+              <h3>Awash National Park</h3>
+              <p class="location">Afar</p>
+              <p class="description">
+                Discover the breathtaking Awash Gorge, where 30-million-year-old
+                geological formations reveal the Earth's ancient history. Carved
+                by the Awash River, this dramatic landscape offers stunning
+                cliffs, rugged terrain, and a glimpse into Ethiopia's
+                prehistoric past. A haven for nature lovers and adventurers, the
+                gorge is also home to diverse wildlife and offers incredible
+                opportunities for hiking and photography.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dallol Hydrothermal Field -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Dallol: Alien Landscape.webp"
+              class="destination-image"
+              alt="Dallol"
+            />
+            <div class="destination-info">
+              <h3>Dallol: Alien Landscape</h3>
+              <p class="location">Danakil Depression</p>
+              <p class="description">
+                Neon-colored acid pools and salt formations.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Oromia Region -->
+        <h2 class="region-header">Oromia Region</h2>
+        <hr />
+
+        <!-- Bale Mountains -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Bale Mountains National Park.webp"
+              class="destination-image"
+              alt="Bale Mountains"
+            />
+            <div class="destination-info">
+              <h3>Bale Mountains National Park</h3>
+              <p class="location">Oromia</p>
+              <p class="description">
+                Explore Africa's largest alpine ecosystem, home to the
+                endangered Ethiopian wolf and majestic mountain nyala. Trek
+                across the otherworldly Sanetti Plateau - the largest
+                Afro-alpine habitat on the continent - with its giant lobelia
+                plants and breathtaking vistas.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sof Omar Caves -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Sof Omar Caves.webp"
+              class="destination-image"
+              alt="Sof Omar"
+            />
+            <div class="destination-info">
+              <h3>Sof Omar Caves</h3>
+              <p class="location">Bale Zone</p>
+              <p class="description">
+                Venture into Africa's longest cave system, a 15km network of
+                limestone chambers carved by the Weyb River. This sacred Islamic
+                site features cathedral-like passages with 20m-high pillars,
+                including the Chamber of Columns housing 300 natural pillars.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wenchi Crater Lake -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Wenchi Crater Lake.webp"
+              class="destination-image"
+              alt="Wenchi"
+            />
+            <div class="destination-info">
+              <h3>Wenchi Crater Lake</h3>
+              <p class="location">Oromia</p>
+              <p class="description">
+                Hike through cloud forests to this stunning volcanic crater lake
+                surrounded by waterfalls and hot springs. Boat across
+                crystal-clear waters to a 13th-century monastery on Tulu Gudo
+                Island, passing grazing horses on lakeshore meadows.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Harenna Forest -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Harenna Forest.jpg"
+              class="destination-image"
+              alt="Harenna"
+            />
+            <div class="destination-info">
+              <h3>Harenna Forest</h3>
+              <p class="location">Bale Mountains</p>
+              <p class="description">
+                Wander through Ethiopia's largest cloud forest, a misty realm of
+                40m-tall trees draped in moss and lichens. This biodiversity
+                hotspot shelters wild coffee varieties, giant lobelias, and rare
+                species like the Bale monkey.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Lake Ziway -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img src="assets/Lake Ziway.webp" class="destination-image" alt="Ziway" />
+            <div class="destination-info">
+              <h3>Lake Ziway</h3>
+              <p class="location">Oromia</p>
+              <p class="description">
+                Discover a birdwatcher's paradise in this shallow Rift Valley
+                lake hosting 300+ species including pink-backed pelicans and
+                African fish eagles. Take a boat to Tulu Gudo Island's
+                12th-century monastery while spotting hippos in the marshes.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Southern Nations Region -->
+        <h2 class="region-header">Southern Nations Region</h2>
+        <hr />
+
+        <!-- Omo Valley Tribes -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Omo Valley Cultures.webp"
+              class="destination-image"
+              alt="Omo Valley"
+            />
+            <div class="destination-info">
+              <h3>Omo Valley Cultures</h3>
+              <p class="location">Southern Nations</p>
+              <p class="description">
+                Experience living anthropology with the Mursi, Hamar, and Karo
+                peoples who maintain ancient traditions in this UNESCO World
+                Heritage landscape. Witness elaborate body painting,
+                bull-jumping ceremonies, and distinctive lip plates.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tiya Megaliths -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img src="assets/Tiya Megaliths.webp" class="destination-image" alt="Tiya" />
+            <div class="destination-info">
+              <h3>Tiya Megaliths</h3>
+              <p class="location">Southern Nations</p>
+              <p class="description">
+                Decipher Ethiopia's ancient history at this UNESCO site
+                featuring 45 mysterious stelae dating to the 12th-14th
+                centuries. The carved stones - some standing 5m tall - mark
+                ancient burial sites with symbols of swords and plant-like
+                motifs.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Konso Cultural Landscape -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img src="assets/Konso Cultural Landscape.webp" class="destination-image" alt="Konso" />
+            <div class="destination-info">
+              <h3>Konso Cultural Landscape</h3>
+              <p class="location">Southern Nations</p>
+              <p class="description">
+                Explore a UNESCO-protected terraced civilization where
+                stone-walled villages have stood for 600 years. The Konso
+                people's ingenious dry-stone terracing and irrigation systems
+                sustain agriculture on steep slopes.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dorze Village -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img src="assets/Dorze Traditions.webp" class="destination-image" alt="Dorze" />
+            <div class="destination-info">
+              <h3>Dorze Traditions</h3>
+              <p class="location">Southern Nations</p>
+              <p class="description">
+                Visit the bamboo masters famous for their towering
+                elephant-shaped houses woven from endemic highland bamboo. Watch
+                traditional cotton weaving and taste kocho bread made from
+                fermented false banana.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bonga Rainforest -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img src="assets/Bonga Rainforest.webp" class="destination-image" alt="Bonga" />
+            <div class="destination-info">
+              <h3>Bonga Rainforest</h3>
+              <p class="location">Kaffa Zone</p>
+              <p class="description">
+                Walk through the birthplace of Arabica coffee in Ethiopia's last
+                remaining mid-altitude rainforest. Participate in traditional
+                coffee ceremonies at source, learning how the Kaffa people first
+                discovered coffee's energizing properties.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gambella Region -->
+        <h2 class="region-header">Gambella Region</h2>
+        <hr />
+
+        <!-- Gambella National Park -->
+        <div class="destination-card">
+          <div class="card-content">
+            <img
+              src="assets/Gambella National Park.webp"
+              class="destination-image"
+              alt="Gambella"
+            />
+            <div class="destination-info">
+              <h3>Gambella National Park</h3>
+              <p class="location">Gambella</p>
+              <p class="description">
+                Witness Africa's second-largest mammal migration as over 1
+                million white-eared kob antelope traverse the floodplains. This
+                vast wilderness shelters elephants, Nile lechwe, and chimpanzees
+                in its mix of savannah and wetlands.
+              </p>
+              <button class="explore-btn">
+                <a href="https://www.ethiopianairlines.com/et" target="_blank"
+                  >Visit</a
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script>
+      // Intersection Observer remains the same
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.25 }
+      );
+
+      document.querySelectorAll(".destination-card").forEach((card) => {
+        observer.observe(card);
+      });
+    </script>
+  </body>
+</html>

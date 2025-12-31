@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopia Travel Testimonials</title>
+    <style>
+        :root {
+            --primary: #2C5F2D;
+            --secondary: #97BC62;
+            --accent: #FF7F50;
+            --text: #2C3E50;
+            --light: #F8F9FA;
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: var(--light);
+        }
+
+        .testimonials-section {
+            padding: 4rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .testimonials-title {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            letter-spacing: -1px;
+        }
+
+        .testimonials-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            position: absolute;
+            bottom: -1rem;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .testimonials-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            gap: 2.5rem;
+            padding: 2rem;
+            overflow-y: auto;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            cursor: pointer;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .testimonial-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .testimonial-text::before {
+            content: "“";
+            position: absolute;
+            left: -1rem;
+            top: -1.5rem;
+            font-size: 5rem;
+            color: var(--secondary);
+            opacity: 0.3;
+            font-family: Times New Roman, serif;
+        }
+
+        .testimonial-author {
+            border-top: 2px solid var(--light);
+            padding-top: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary);
+        }
+
+        .author-info h4 {
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+            font-size: 1.2rem;
+        }
+
+        .author-info p {
+            color: #6c757d;
+            font-size: 0.95rem;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(200, 200, 200, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-section {
+                padding: 2rem 1rem;
+            }
+
+            .testimonials-title {
+                font-size: 2.2rem;
+            }
+
+            .testimonial-card {
+                min-height: auto;
+                padding: 1.5rem;
+            }
+
+            .testimonial-text {
+                font-size: 1rem;
+                padding-left: 1.5rem;
+            }
+
+            .testimonial-text::before {
+                left: -0.5rem;
+                top: -1rem;
+                font-size: 4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="testimonials-section">
+        <h1 class="testimonials-title">Traveler Experiences 🌍</h1>
+        
+        <div class="testimonials-container">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Watching the sunrise over the Danakil Depression's sulfur springs felt like witnessing 
+                    Earth's creation. Ethiopia's geological wonders are truly out of this world!"
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=1" alt="Sarah" class="author-image">
+                    <div class="author-info">
+                        <h4>Sarah Müller</h4>
+                        <p>Geologist, Germany</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "The coffee ceremony in Harar was magical! Sharing traditional brew with locals taught 
+                    me more about Ethiopian culture than any guidebook could."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=2" alt="James" class="author-image">
+                    <div class="author-info">
+                        <h4>James Chen</h4>
+                        <p>Food Blogger, USA</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Trekking through Bale Mountains National Park, we spotted Ethiopian wolves - 
+                    a rare privilege! The biodiversity here is astonishing."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=3" alt="Amina" class="author-image">
+                    <div class="author-info">
+                        <h4>Amina Bello</h4>
+                        <p>Wildlife Photographer</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Attending Timket festival in Gondar was life-changing. The vibrant processions 
+                    and spiritual energy made me understand Ethiopia's deep religious heritage."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=4" alt="Carlos" class="author-image">
+                    <div class="author-info">
+                        <h4>Carlos Gutierrez</h4>
+                        <p>Cultural Writer, Spain</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Sailing on Lake Tana to visit ancient island monasteries felt like stepping back 
+                    in time. The preserved manuscripts and church art are priceless treasures."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=5" alt="Yuki" class="author-image">
+                    <div class="author-info">
+                        <h4>Yuki Tanaka</h4>
+                        <p>Art Historian, Japan</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 6 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "The Omo Valley tribes' body art and traditions left me speechless. Ethiopia's 
+                    cultural diversity rivals its natural wonders."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=6" alt="Liam" class="author-image">
+                    <div class="author-info">
+                        <h4>Liam O'Brien</h4>
+                        <p>Anthropologist, Ireland</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 7 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Climbing Abuna Yemata Guh - a rock-hewn church atop a sheer cliff - was the most 
+                    exhilarating spiritual experience of my life."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=7" alt="Nadia" class="author-image">
+                    <div class="author-info">
+                        <h4>Nadia Ali</h4>
+                        <p>Adventure Seeker, UAE</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 8 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "The hyena feeding ritual in Harar at dusk was thrilling! Ethiopia constantly 
+                    surprises with its unique traditions."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=8" alt="Kwame" class="author-image">
+                    <div class="author-info">
+                        <h4>Kwame Asante</h4>
+                        <p>Travel Vlogger, Ghana</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonial 9 -->
+            <div class="testimonial-card">
+                <p class="testimonial-text">
+                    "Volunteering in a community project near Bahir Dar showed me the warm heart of 
+                    Ethiopia. The people's resilience and joy are truly inspiring."
+                </p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/100?img=9" alt="Emma" class="author-image">
+                    <div class="author-info">
+                        <h4>Emma Johnson</h4>
+                        <p>NGO Worker, Canada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

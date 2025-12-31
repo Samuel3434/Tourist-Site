@@ -1,0 +1,220 @@
+.project-section {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+justify-content: center;
+  align-items: center;
+  background-color: pink;
+  background: linear-gradient(to bottom, var(--deep-dark-green), #000000);
+  /* very dark green, close to black */
+  overflow-x: hidden; /* Hide overflowing content */
+  perspective: 1500px; /* Perspective for 3D effect */
+  position: relative;
+  user-select: none;
+  /* border-radius: 0 0 9rem 9rem; */
+}
+.project-section::before{
+  content: '';
+  position: absolute;;
+  width: 100%;
+  height:50%;
+
+  border-radius:0 0 100rem 100rem ;
+  background-color: #417367;
+  top: 0;
+}
+.project-section::after{
+  content:'';
+  position:absolute;
+  width: 100%;
+  height: 50%;
+  background-color: #417367;
+  border-radius:100rem 100rem 0 0;
+  bottom: 0;
+  z-index: -1;
+}
+.project-section * {
+  user-select: none;
+}
+
+.project-slider {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transform-style: preserve-3d; /* Enable 3D stacking */
+}
+
+.slider-item {
+  position: absolute;
+  width: 600px;
+  height: 700px;
+  border-radius: 2rem;
+  overflow: hidden;
+  transition:
+    transform 0.5s ease,
+    opacity 0.5s ease; /* Smooth transition for interactivity */
+  /*box-shadow: 0 0 5px #7ef0a9, 0 0 10px #7ef0a9, 0 0 15px #7ef0a9,*/
+  /*  0 0 20px #57be85, 0 0 25px #57be85;*/
+}
+
+.slider-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2rem;
+  object-position: center;
+}
+
+.item-content {
+  width: 80%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  top: 0;
+  padding: 1rem;
+  /*background: rgba(39, 115, 106, 0.4);*/
+  background: rgba(30, 30, 30, 0.4);
+  color: white;
+  /*text-align: center;*/
+  transition: all 0.51s ease-in-out;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
+  backdrop-filter: blur(0.5rem);
+}
+
+.item-content h1 {
+  font-family: "Arial", sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: white;
+  /*text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.7),*/
+  /*  0 0 15px rgba(255, 255, 255, 0.5),*/
+  /*  0 0 25px rgba(255, 255, 255, 0.4),*/
+  /*  0 0 35px rgba(255, 255, 255, 0.3);*/
+}
+
+.item-content p {
+  font-family: "Arial", sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  /*text-shadow: 3px 3px 5px rgba(255, 255, 255, 0.7),*/
+  /*  0 0 15px rgba(255, 255, 255, 0.5),*/
+  /*  0 0 25px rgba(255, 255, 255, 0.4),*/
+  /*  0 0 35px rgba(255, 255, 255, 0.3);*/
+}
+
+.slider-item:hover .item-content {
+  left: 0%;
+}
+
+/* 3D Positioning for items */
+.slider-item:nth-child(1) {
+  transform: rotateY(-30deg) translateX(-300px) translateZ(-200px);
+}
+.slider-item:nth-child(2) {
+  transform: rotateY(-15deg) translateX(-150px) translateZ(-100px);
+}
+.slider-item:nth-child(3) {
+  transform: rotateY(0deg) translateX(0) translateZ(0);
+}
+.slider-item:nth-child(4) {
+  transform: rotateY(15deg) translateX(150px) translateZ(-100px);
+}
+.slider-item:nth-child(5) {
+  transform: rotateY(30deg) translateX(300px) translateZ(-200px);
+}
+.slider-item:nth-child(6) {
+  transform: rotateY(45deg) translateX(450px) translateZ(-300px);
+}
+.slider-item:nth-child(7) {
+  transform: rotateY(60deg) translateX(600px) translateZ(-400px);
+}
+
+.project-section .slider-next-btn img {
+  /* filter: invert(1); */
+  width: 5rem;
+  top: calc(50% - 3rem);
+  right: 5rem;
+  position: absolute;
+}
+
+.slider-prev-btn img {
+  /* filter: invert(1); */
+  width: 5rem;
+  /* top: calc(50% - 5rem); */
+  top: calc(50% - 3rem);
+  left: 5rem;
+  position: absolute;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 900px) {
+  /** {*/
+  /*  background-color: yellow !important;*/
+  /**/
+  /*  }*/
+  .project-slider {
+    height: 70%;
+  }
+
+  .slider-item {
+    width: 400px;
+    height: 500px;
+    transform: rotateY(0deg) translateX(0) translateZ(0);
+  }
+
+  .project-section .slider-next-btn img,
+  .project-section .slider-prev-btn img {
+    width: 4rem;
+  }
+  .project-section .slider-next-btn img {
+    right: 1rem;
+    /* top: 90%; */
+  }
+  .project-section .slider-prev-btn img {
+    left: 1rem;
+    /* top: 90%; */
+  }
+  .item-content h1 {
+    font-size: 1rem;
+  }
+  .item-content p {
+    font-size: 0.8rem;
+  }
+}
+
+
+@media screen and (max-width: 581px) {
+  .project-slider {
+    height: 60%;
+    margin-top: -10rem;
+  }
+
+  .slider-item {
+    width: 250px;
+    height: 400px;
+    transform: rotateY(0deg) translateX(0) translateZ(0);
+  }
+
+  .project-section .slider-next-btn img,
+  .project-section .slider-prev-btn img {
+    width: 4rem;
+  }
+  .project-section .slider-next-btn img {
+    left: 55%;
+    top: 32rem;
+    /* top: 80%; */
+  }
+  .project-section .slider-prev-btn img {
+    left: 35%;
+    top: 32rem;
+    /* top: 80%; */
+  }
+}

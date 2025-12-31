@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Orbitron"
+      rel="stylesheet"
+    />
+    <title>Ethiopia Today</title>
+  </head>
+  <body>
+    <div class="hero">
+      <!--<video src="assets/Visit Ethiopia - The Land of Origins [1xuzWBxlwCk].webm" autoplay loop muted></video>-->
+      <h1>Ethiopia Today</h1>
+    </div>
+    <div class="cards-container">
+      <!-- Card 1 -->
+      <div class="card-and-desc-container">
+        <div class="card">
+          <div
+            class="card-image"
+            style="background: linear-gradient(135deg, #ff6b6b, #f8e71c)"
+          ></div>
+          <div class="card-overlay">
+            <h3>Enchanted Forest</h3>
+            <p>
+              Step into a realm of magic and mystery, where nature unveils its
+              hidden secrets.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="card">
+        <div
+          class="card-image"
+          style="background: linear-gradient(135deg, #6bffb3, #71b6f8)"
+        ></div>
+        <div class="card-overlay">
+          <h3>Coastal Paradise</h3>
+          <p>
+            Feel the ocean breeze and bask in the sun on pristine beaches and
+            clear waters.
+          </p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="card">
+        <div
+          class="card-image"
+          style="background: linear-gradient(135deg, #f86bff, #f8a71c)"
+        ></div>
+        <div class="card-overlay">
+          <h3>Historic Town</h3>
+          <p>
+            Roam timeless streets and experience the rich tapestry of history
+            and culture.
+          </p>
+        </div>
+      </div>
+      <!-- Additional cards can be added similarly -->
+    </div>
+    <section style="height: 100vh"></section>
+  </body>
+</html>

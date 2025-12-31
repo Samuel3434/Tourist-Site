@@ -1,0 +1,247 @@
+.section-1 h1 {
+  color: white;
+  font-size: 2.2rem;
+  margin: 1rem;
+}
+.section-1 {
+  background-color: #00011e;
+  flex-direction: column !important;
+
+  background: linear-gradient(
+    300deg,
+    #8a9a98,
+    /* Darkened #c4dcd5 */ #7a8d7c,
+    /* Darkened #a9d1c4 */ #6b9388,
+    /* Darkened #93c3b8 */ #4f7c6f,
+    /* Darkened #6e9e93 */ #364a46,
+    /* Darkened #4a6c6a */ #4e6978,
+    /* Darkened #628a91 */ #6b8c98 /* Darkened #90b1bc */
+  );
+
+  background: linear-gradient(
+    300deg,
+    #8a9a98 0%,
+    #4f7c6f 25%,
+    #4f7c6f 75%,
+    #6b8c98 100%
+  );
+
+  height: 100vh;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  scroll-snap-align: start;
+  padding: 0;
+}
+.container {
+  height: 80%;
+  width: 50%;
+  display: flex;
+
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.card {
+  margin: 0 10px;
+  width: 20%;
+  border-radius: 1rem;
+  background-size: cover;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  transition: all 0.6s cubic-bezier(0.075, 0.82, 0.165, 1);
+  box-shadow: 5px 10px 15px 1px rgba(0, 0, 0, 0.5);
+}
+
+.card > .description {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 1rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition-delay: 0.3s;
+  transition: all 0.3s ease;
+  /* mix-blend-mode: difference; */
+  transition-delay: 0.3s;
+}
+.description h4 {
+  font-size: 2.4rem;
+  padding-bottom: 0.5rem;
+  padding-left: 0.5rem;
+  color: white;
+  text-shadow: 2px 2px black !important;
+}
+.description p {
+  /*font-weight: bold;*/
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 2px black !important;
+}
+
+input {
+  display: none;
+}
+input:checked + label {
+  width: 100%;
+}
+input:checked + label .description {
+  opacity: 1 !important;
+  transform: translateY(100px) !important;
+}
+
+.card[for="c1"] {
+  background-image: url(assets/Tibis-img.jpg);
+}
+
+.card[for="c2"] {
+  background-image: url(assets/Doro-wot-img.jpg);
+  background-size: cover;
+}
+
+.card[for="c3"] {
+  background-image: url(assets/Shiro-wot-img.jpg);
+}
+
+.card[for="c4"] {
+  background-image: url(assets/Beye-ayntu-wot-img.jpg);
+}
+.line {
+  background-color: green;
+  height: 0.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  width: 0;
+  transition: width 0.3s;
+}
+.food-description {
+  color: white;
+  transition: transform 1s;
+}
+
+.card[for="c1"]:hover .description {
+  transform: translateY(-100px) !important;
+}
+.card[for="c1"]:hover .line {
+  width: 90%;
+}
+.card[for="c2"]:hover .description {
+  transform: translateY(-100px) !important;
+}
+.card[for="c2"]:hover .line {
+  width: 90%;
+}
+.card[for="c3"]:hover .description {
+  transform: translateY(-100px) !important;
+}
+.card[for="c3"]:hover .line {
+  width: 90%;
+}
+.card[for="c4"]:hover .description {
+  transform: translateY(-100px) !important;
+}
+.card[for="c4"]:hover .line {
+  width: 90%;
+}
+.section-1-button {
+  display: grid;
+  place-content: center;
+  font-size: 1rem;
+  color: white;
+  padding: 0.7rem 0.7rem;
+  border-radius: 0.4rem;
+  border: 2px solid white;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  transition: all 0.5s ease;
+}
+.section-1-button::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  background-color: white;
+  height: 0;
+  bottom: 0%;
+  left: 0%;
+  border-radius: 50% 50% 0 0;
+  transition: all 0.5s ease;
+  z-index: -1;
+}
+
+.section-1-button:hover::before {
+  height: 200%;
+}
+.section-1-button:hover {
+  color: black;
+}
+
+.food-details button {
+  text-align: center;
+  height: 3rem;
+  aspect-ratio: 2/1;
+  background-color: transparent;
+  margin-top: 1rem;
+  border: 2px solid;
+  color: white;
+  border-radius: 1rem;
+  transition: 0.1s ease-in;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.food-details span {
+  transition: all 0.3s ease;
+}
+.food-details button img {
+  filter: invert(1);
+  width: 0;
+  transition: width 0.2s ease;
+}
+.food-details button:hover img {
+  width: 24px;
+}
+
+@media (max-width: 1250px) {
+  input:checked + label .description {
+    opacity: 1 !important;
+    transform: translateY(200px) !important;
+  }
+  .container {
+    width: 95%;
+  }
+  .parallax img {
+    width: auto;
+    height: 100vh;
+  }
+  .title {
+    font-size: 3.5rem;
+  }
+  .grid-container {
+    height: 50vh;
+  }
+  .card {
+    width: 3rem;
+    background-position: 30%;
+  }
+  input:checked + label {
+    width: 15rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .description h4 {
+    font-size: 1.8rem;
+  }
+  input:checked + label .description {
+    opacity: 1 !important;
+    transform: translateY(210px) !important;
+  }
+}
